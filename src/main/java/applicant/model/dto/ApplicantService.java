@@ -3,6 +3,7 @@ package applicant.model.dto;
 import java.sql.SQLException;
 
 import applicant.exception.MessageException;
+import applicant.exception.NotExistException;
 import applicant.model.ApplicantDAO;
 
 public class ApplicantService {
@@ -17,5 +18,14 @@ public class ApplicantService {
 		}
 		return result;
 	}
-
+	
+	public static ApplicantDTO getApplicant(String applicantId) throws SQLException, NotExistException{
+		ApplicantDTO applicant = ApplicantDAO.getApplicant(applicantId);
+		if(applicant == null){
+			throw new NotExistException("로그인 정보를 제대로 입력해주세요.");
+		}
+		return applicant;
+	}
+	
+	
 }
