@@ -11,14 +11,14 @@
 <html> 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>재능 기부자 상세 정보 화면</title>
+<title>마이 페이지</title>
 </head>
 <body>
 <br><br><br>
 <center>
 
 
-<h3>재능 기부자</h3>
+<h3>지원자 정보</h3>
 <hr><p> 
  
 <table border="1">
@@ -33,9 +33,9 @@
 </table>
 
 <br><br><br>
-<a href="probono?command=activistUpdateReq&activistId=${activist.id}">수정하기</a>
+<a href="controller?command=applicantUpdateReq&applicant_id=${applicant.id}">수정하기</a>
 
-<a href="probono?command=activistDelete&activistId=${activist.id}">탈퇴하기</a>
+<a href="controller?command=applicantDelete&applicant_id=${applicant.id}">탈퇴하기</a>
 
 &nbsp;&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/index.html">메인 화면 이동</a>
 

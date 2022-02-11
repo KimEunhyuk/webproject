@@ -34,9 +34,14 @@ public class ApplicantController extends HttpServlet {
 		try{
 			if(command.equals("applicantInsert")){//재능 기부자 추가 등록
 				applicantInsert(request, response);
+			}else if(command.equals("applicant")) {
+				applicant(request, response);
+			}
+				
+			
 				
 				//************* 추가해야함
-			}
+			
 		}catch(Exception s){
 			request.setAttribute("errorMsg", s.getMessage());
 			request.getRequestDispatcher("showError.jsp").forward(request, response);
@@ -77,5 +82,49 @@ public class ApplicantController extends HttpServlet {
 			}
 			request.getRequestDispatcher(url).forward(request, response);
 		}
+		
+		//재능 기부자 검색 
+		public void applicant(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			String url = "showError.jsp";
+			try {
+				request.setAttribute("applicant", ApplicantService.getApplicant(request.getParameter("applicant_id")));
+				url = "applicantDetail.jsp";
+			}catch(Exception s){
+				request.setAttribute("errorMsg", s.getMessage());
+				s.printStackTrace();
+			}
+			request.getRequestDispatcher(url).forward(request, response);
+		}
+		
+		//재능 기부자 수정 요구
+		public void applicantUpdateReq(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			String url = "showError.jsp";
+			try {
+				request.setAttribute("applicant", ApplicantService.getApplicant(request.getParameter("applicant_id")));
+				url = "applicantUpdate.jsp";
+			}catch(Exception s){
+				request.setAttribute("errorMsg", s.getMessage());
+				s.printStackTrace();
+			}
+			request.getRequestDispatcher(url).forward(request, response);
+		}
+		
+		//재능 기부자 삭제
+		public void applicantDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+			String url = "showError.jsp";
+			try {
+				String applicant_id = request.getParameter("applicant_id");
+				if(ApplicantService.deleteApplicant(applicant_id)){
+					request.setAttribute("applicantAll", ApplicantService.getAllApplicant());
+					url = "applicantList.jsp";
+				}else{
+					request.setAttribute("errorMsg", "재 실행 해 주세요");
+				}
+			}catch(Exception s){
+				request.setAttribute("errorMsg", "진행중인 Probono Project가 있습니다");
+			}
+			request.getRequestDispatcher(url).forward(request, response);
+		}
+		
 	
 }
